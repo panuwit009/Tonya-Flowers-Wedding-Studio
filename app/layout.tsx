@@ -14,36 +14,39 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Tonya Flowers Wedding Studio | Wedding Organizer in Lop Buri, Thailand',
+  title: 'Tonya Flowers Wedding Studio | รับจัดงานแต่งงาน ลพบุรี',
   description:
-    'Tonya Flowers Wedding Studio - Professional wedding organizer and floral design in Lop Buri, Thailand. We create beautiful, memorable weddings with elegant flower arrangements and full event planning services.',
+    'Tonya Flowers Wedding Studio - รับจัดงานแต่งงานครบวงจร จัดดอกไม้ ตกแต่งสถานที่ ออกแบบธีมงานแต่ง ลพบุรี ประเทศไทย สร้างงานแต่งในฝันให้เป็นจริง',
   keywords: [
-    // --- REPLACE THESE WITH YOUR OWN SEO KEYWORDS ---
-    'wedding organizer Lop Buri',
-    'wedding planner Thailand',
-    'wedding flowers Lop Buri',
-    'Tonya Flowers Wedding Studio',
-    'floral design wedding',
-    'wedding decoration Thailand',
-    'จัดงานแต่งงาน ลพบุรี',
+    // --- แก้ไข SEO KEYWORDS ของคุณที่นี่ ---
+    'รับจัดงานแต่งงาน ลพบุรี',
+    'wedding planner ลพบุรี',
     'จัดดอกไม้งานแต่ง',
+    'Tonya Flowers Wedding Studio',
+    'ตกแต่งงานแต่งงาน',
     'wedding organizer Thailand',
-    // --- END SEO KEYWORDS ---
+    'จัดงานแต่งงาน ราคา',
+    'รับจัดดอกไม้สด งานแต่ง',
+    'wedding planner Thailand',
+    'จัดงานแต่งงานครบวงจร',
+    'ร้านดอกไม้ ลพบุรี',
+    'wedding decoration Thailand',
+    // --- จบ SEO KEYWORDS ---
   ],
   openGraph: {
-    title: 'Tonya Flowers Wedding Studio | Wedding Organizer in Lop Buri',
+    title: 'Tonya Flowers Wedding Studio | รับจัดงานแต่งงาน ลพบุรี',
     description:
-      'Professional wedding organizer and floral design in Lop Buri, Thailand. Creating beautiful, memorable weddings.',
+      'รับจัดงานแต่งงานครบวงจร จัดดอกไม้ ตกแต่งสถานที่ ออกแบบธีมงานแต่ง ลพบุรี ประเทศไทย',
     url: 'https://tonyaflowers.com',
     siteName: 'Tonya Flowers Wedding Studio',
-    locale: 'en_US',
+    locale: 'th_TH',
     type: 'website',
     images: [
       {
         url: '/images/logo.jpg',
         width: 960,
         height: 960,
-        alt: 'Tonya Flowers Wedding Studio Logo',
+        alt: 'โลโก้ Tonya Flowers Wedding Studio',
       },
     ],
   },
@@ -51,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Tonya Flowers Wedding Studio',
     description:
-      'Professional wedding organizer and floral design in Lop Buri, Thailand.',
+      'รับจัดงานแต่งงานครบวงจร จัดดอกไม้ ตกแต่งสถานที่ ลพบุรี ประเทศไทย',
     images: ['/images/logo.jpg'],
   },
   robots: {
@@ -78,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="th">
       <body
         className={`${dmSans.variable} ${playfairDisplay.variable} font-sans antialiased`}
       >

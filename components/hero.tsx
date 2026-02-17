@@ -29,24 +29,24 @@ export function Hero() {
           Wedding Organizer & Floral Design
         </p>
         <h1 className="font-serif text-4xl font-bold leading-tight text-primary-foreground md:text-6xl lg:text-7xl text-balance">
-          Creating Your Dream Wedding
+          สร้างงานแต่งงานในฝันของคุณ
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/80 md:text-lg">
-          We turn your vision into a beautiful reality with elegant floral
-          arrangements and thoughtful event planning in Lop Buri, Thailand.
+          เราเปลี่ยนความฝันของคุณให้เป็นจริง ด้วยการจัดดอกไม้สดอย่างสวยงาม
+          และบริการออกแบบงานแต่งงานครบวงจร ที่ลพบุรี ประเทศไทย
         </p>
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
             href="#contact"
             className="rounded-sm bg-accent px-8 py-3 text-sm font-semibold text-primary transition-colors hover:bg-accent/90"
           >
-            Get in Touch
+            ติดต่อเรา
           </a>
           <a
             href="#services"
             className="rounded-sm border border-primary-foreground/30 px-8 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
           >
-            Our Services
+            บริการของเรา
           </a>
         </div>
       </div>

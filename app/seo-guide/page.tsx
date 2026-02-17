@@ -3,72 +3,72 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "SEO Guide - Tonya Flowers Wedding Studio",
-  description: "Internal SEO guide for managing your website keywords and search engine optimization.",
+  title: "คู่มือ SEO - Tonya Flowers Wedding Studio",
+  description: "คู่มือ SEO ภายในสำหรับจัดการคีย์เวิร์ดและการเพิ่มประสิทธิภาพเว็บไซต์",
   robots: { index: false, follow: false },
 }
 
 const steps = [
   {
-    title: "Step 1: Update Your SEO Keywords",
-    content: `Open the file \`app/layout.tsx\` and find the \`keywords\` array inside the metadata object. Replace the placeholder keywords with your own. Good keywords for a wedding business include:
+    title: "ขั้นตอนที่ 1: แก้ไขคีย์เวิร์ด SEO",
+    content: `เปิดไฟล์ app/layout.tsx แล้วหาคำว่า keywords ภายใน metadata object แก้ไขคีย์เวิร์ดตามที่ต้องการ ตัวอย่างคีย์เวิร์ดที่ดีสำหรับธุรกิจแต่งงาน:
 
-- Your business name (e.g., "Tonya Flowers Wedding Studio")
-- Location-based keywords (e.g., "wedding organizer Lop Buri", "wedding planner Thailand")
-- Service-based keywords (e.g., "wedding flowers", "wedding decoration", "floral design")
-- Thai language keywords (e.g., "จัดงานแต่งงาน ลพบุรี", "จัดดอกไม้งานแต่ง")
-- Long-tail keywords (e.g., "affordable wedding planner in Lop Buri Thailand")`,
+- ชื่อธุรกิจ เช่น "Tonya Flowers Wedding Studio"
+- คีย์เวิร์ดตามสถานที่ เช่น "รับจัดงานแต่งงาน ลพบุรี", "wedding planner ลพบุรี"
+- คีย์เวิร์ดตามบริการ เช่น "จัดดอกไม้งานแต่ง", "ตกแต่งงานแต่งงาน"
+- คีย์เวิร์ดภาษาไทย เช่น "จัดงานแต่งงานครบวงจร", "ร้านดอกไม้ ลพบุรี"
+- คีย์เวิร์ดแบบ Long-tail เช่น "รับจัดงานแต่งงาน ราคาประหยัด ลพบุรี"`,
   },
   {
-    title: "Step 2: Update the Page Title & Description",
-    content: `In the same \`app/layout.tsx\` file, update the \`title\` and \`description\` fields. The title appears in Google search results and browser tabs. Keep it under 60 characters. The description appears below the title in search results. Keep it under 160 characters. Make it compelling so people click!`,
+    title: "ขั้นตอนที่ 2: แก้ไขชื่อหน้าเว็บและคำอธิบาย",
+    content: `ในไฟล์ app/layout.tsx เดียวกัน แก้ไข title และ description ชื่อหน้าเว็บจะแสดงในผลการค้นหา Google และแท็บของเบราว์เซอร์ ควรมีไม่เกิน 60 ตัวอักษร คำอธิบายจะแสดงใต้ชื่อในผลค้นหา ควรมีไม่เกิน 160 ตัวอักษร เขียนให้น่าสนใจเพื่อให้คนคลิก!`,
   },
   {
-    title: "Step 3: Update Open Graph (Social Media Sharing)",
-    content: `Still in \`app/layout.tsx\`, update the \`openGraph\` section. This controls how your website appears when shared on Facebook, Line, or other social media. Update the \`url\` field to your actual domain name after deployment.`,
+    title: "ขั้นตอนที่ 3: แก้ไข Open Graph (การแชร์บนโซเชียลมีเดีย)",
+    content: `ยังอยู่ในไฟล์ app/layout.tsx แก้ไขส่วน openGraph ซึ่งควบคุมว่าเว็บไซต์จะแสดงอย่างไรเมื่อถูกแชร์บน Facebook, Line หรือโซเชียลมีเดียอื่นๆ อัปเดตช่อง url ให้เป็นชื่อโดเมนจริงของคุณหลัง deploy`,
   },
   {
-    title: "Step 4: Update the Domain in sitemap.ts and robots.ts",
-    content: `Open \`app/sitemap.ts\` and \`app/robots.ts\` and replace "https://tonyaflowers.com" with your actual domain name. The sitemap tells Google which pages to index. The robots.txt tells search engines how to crawl your site.`,
+    title: "ขั้นตอนที่ 4: อัปเดตโดเมนใน sitemap.ts และ robots.ts",
+    content: `เปิดไฟล์ app/sitemap.ts และ app/robots.ts แล้วเปลี่ยน "https://tonyaflowers.com" เป็นชื่อโดเมนจริงของคุณ sitemap จะบอก Google ว่ามีหน้าไหนบ้างที่ต้อง index ส่วน robots.txt จะบอก search engine ว่าจะ crawl เว็บอย่างไร`,
   },
   {
-    title: "Step 5: Submit to Google Search Console",
-    content: `This is the most important step! Go to Google Search Console (search.google.com/search-console) and:
+    title: "ขั้นตอนที่ 5: ส่งเว็บไปยัง Google Search Console",
+    content: `นี่เป็นขั้นตอนที่สำคัญที่สุด! เข้าไปที่ Google Search Console (search.google.com/search-console) แล้ว:
 
-1. Add your website as a property
-2. Verify ownership (Vercel makes this easy with DNS verification)
-3. Submit your sitemap URL: yourdomain.com/sitemap.xml
-4. Wait for Google to start indexing your pages (can take a few days to weeks)`,
+1. เพิ่มเว็บไซต์ของคุณเป็น property
+2. ยืนยันความเป็นเจ้าของ (Vercel ทำให้ง่ายด้วยการยืนยันผ่าน DNS)
+3. ส่ง URL ของ sitemap: yourdomain.com/sitemap.xml
+4. รอให้ Google เริ่ม index หน้าเว็บ (อาจใช้เวลาหลายวันถึงหลายสัปดาห์)`,
   },
   {
-    title: "Step 6: Create a Google Business Profile",
-    content: `Go to business.google.com and create a profile for "Tonya Flowers Wedding Studio". This is FREE and very important for local SEO:
+    title: "ขั้นตอนที่ 6: สร้าง Google Business Profile",
+    content: `เข้าไปที่ business.google.com แล้วสร้างโปรไฟล์สำหรับ "Tonya Flowers Wedding Studio" ฟรี! และสำคัญมากสำหรับ SEO ในพื้นที่:
 
-1. Add your business name, address, phone, and hours
-2. Upload photos of your work
-3. Choose the right category: "Wedding Planner" or "Florist"
-4. Ask happy clients to leave Google reviews
-5. This will help you appear in Google Maps and local search results`,
+1. เพิ่มชื่อธุรกิจ ที่อยู่ เบอร์โทร และเวลาทำการ
+2. อัปโหลดรูปผลงานของคุณ
+3. เลือกหมวดหมู่ที่ถูกต้อง: "Wedding Planner" หรือ "Florist"
+4. ขอให้ลูกค้าที่พอใจเขียนรีวิวบน Google
+5. จะช่วยให้ร้านของคุณแสดงบน Google Maps และผลค้นหาในพื้นที่`,
   },
   {
-    title: "Step 7: Add Content Regularly",
-    content: `Google loves fresh content. Consider adding:
+    title: "ขั้นตอนที่ 7: เพิ่มเนื้อหาสม่ำเสมอ",
+    content: `Google ชอบเนื้อหาใหม่ๆ ลองเพิ่ม:
 
-- A blog section with wedding tips and inspiration
-- New photos in your gallery after each event
-- Client testimonials and reviews
-- Seasonal content (e.g., "Best wedding flowers for Thai summer")
+- บล็อกเกี่ยวกับเคล็ดลับและแรงบันดาลใจงานแต่ง
+- รูปภาพใหม่ในแกลเลอรีหลังจากจัดงานเสร็จแต่ละครั้ง
+- รีวิวจากลูกค้าจริง
+- เนื้อหาตามฤดูกาล เช่น "ดอกไม้งานแต่งยอดนิยมช่วงหน้าร้อน"
 
-Each new page is another chance to rank for keywords!`,
+ทุกหน้าใหม่คือโอกาสในการติดอันดับคีย์เวิร์ด!`,
   },
   {
-    title: "Step 8: Get Backlinks",
-    content: `Backlinks (other websites linking to yours) are one of the most important SEO factors:
+    title: "ขั้นตอนที่ 8: สร้าง Backlinks",
+    content: `Backlinks (เว็บไซต์อื่นลิงก์มาหาคุณ) เป็นหนึ่งในปัจจัย SEO ที่สำคัญที่สุด:
 
-- Get listed on Thai wedding directories
-- Partner with other wedding vendors and link to each other
-- Share your work on social media with links back to your website
-- Ask wedding blogs or magazines to feature your work`,
+- ลงทะเบียนในไดเรกทอรีงานแต่งงานของไทย
+- ร่วมมือกับผู้ให้บริการงานแต่งงานรายอื่นและลิงก์ถึงกัน
+- แชร์ผลงานบนโซเชียลมีเดียพร้อมลิงก์กลับมาเว็บไซต์
+- ขอให้บล็อกหรือนิตยสารงานแต่งงานนำเสนอผลงานของคุณ`,
   },
 ]
 
@@ -81,15 +81,15 @@ export default function SeoGuidePage() {
           className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
         >
           <ArrowLeft size={16} />
-          Back to Home
+          กลับหน้าแรก
         </Link>
 
         <h1 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-          SEO Guide for Your Website
+          คู่มือ SEO สำหรับเว็บไซต์ของคุณ
         </h1>
         <p className="mt-4 leading-relaxed text-muted-foreground">
-          Follow these steps to optimize your website for search engines. This
-          guide is for your reference only and is not indexed by Google.
+          ทำตามขั้นตอนเหล่านี้เพื่อเพิ่มประสิทธิภาพเว็บไซต์สำหรับ search engine
+          คู่มือนี้สำหรับอ้างอิงเท่านั้น และไม่ถูก index โดย Google
         </p>
 
         <div className="mt-12 flex flex-col gap-10">
@@ -110,24 +110,24 @@ export default function SeoGuidePage() {
 
         <div className="mt-12 rounded-sm bg-primary p-8">
           <h2 className="font-serif text-xl font-semibold text-primary-foreground">
-            Quick Reference: Where to Edit Keywords
+            สรุปด่วน: แก้ไขคีย์เวิร์ดที่ไหน
           </h2>
           <div className="mt-4 space-y-3 text-sm text-primary-foreground/80">
             <p>
-              <span className="font-semibold text-accent">Keywords:</span>{" "}
+              <span className="font-semibold text-accent">คีย์เวิร์ด:</span>{" "}
               {"app/layout.tsx → metadata.keywords array"}
             </p>
             <p>
-              <span className="font-semibold text-accent">Page Title:</span>{" "}
+              <span className="font-semibold text-accent">ชื่อหน้าเว็บ:</span>{" "}
               {"app/layout.tsx → metadata.title"}
             </p>
             <p>
-              <span className="font-semibold text-accent">Description:</span>{" "}
+              <span className="font-semibold text-accent">คำอธิบาย:</span>{" "}
               {"app/layout.tsx → metadata.description"}
             </p>
             <p>
               <span className="font-semibold text-accent">
-                Social Media Preview:
+                พรีวิวโซเชียลมีเดีย:
               </span>{" "}
               {"app/layout.tsx → metadata.openGraph"}
             </p>

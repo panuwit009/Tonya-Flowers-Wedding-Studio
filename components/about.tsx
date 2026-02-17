@@ -4,21 +4,21 @@ import { Heart, Flower2, Sparkles } from "lucide-react"
 const highlights = [
   {
     icon: Heart,
-    title: "Passion for Detail",
+    title: "ใส่ใจทุกรายละเอียด",
     description:
-      "Every petal, every ribbon, every detail is crafted with love and care to make your day truly special.",
+      "ทุกกลีบดอกไม้ ทุกริบบิ้น ทุกรายละเอียด ถูกรังสรรค์ด้วยความรักและความใส่ใจ เพื่อให้วันสำคัญของคุณพิเศษอย่างแท้จริง",
   },
   {
     icon: Flower2,
-    title: "Floral Expertise",
+    title: "เชี่ยวชาญด้านดอกไม้",
     description:
-      "With years of experience in floral design, we create stunning arrangements that capture your unique style.",
+      "ด้วยประสบการณ์หลายปีในการออกแบบดอกไม้ เราสร้างสรรค์การจัดดอกไม้ที่สวยงาม ตรงตามสไตล์ที่คุณต้องการ",
   },
   {
     icon: Sparkles,
-    title: "Full Service Planning",
+    title: "บริการครบวงจร",
     description:
-      "From concept to celebration, we handle every aspect of your wedding so you can enjoy the moment.",
+      "ตั้งแต่คอนเซ็ปต์จนถึงวันงาน เราดูแลทุกขั้นตอนของงานแต่งงาน เพื่อให้คุณสนุกกับทุกช่วงเวลา",
   },
 ]
 
@@ -40,17 +40,17 @@ export function About() {
           {/* Text content */}
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-              About Us
+              เกี่ยวกับเรา
             </p>
             <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-              Where Elegance Meets Celebration
+              ความสง่างามที่ผสมผสานกับความสุข
             </h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              Tonya Flowers Wedding Studio is a professional wedding organizer
-              based in Lop Buri, Thailand. We specialize in creating beautiful,
-              memorable weddings with elegant flower arrangements and
-              comprehensive event planning services. Our passion is turning your
-              dream wedding into reality.
+              Tonya Flowers Wedding Studio เป็นผู้จัดงานแต่งงานมืออาชีพ
+              ตั้งอยู่ที่ลพบุรี ประเทศไทย เราเชี่ยวชาญในการสร้างสรรค์งานแต่งงาน
+              ที่สวยงามและน่าจดจำ ด้วยการจัดดอกไม้สดอย่างหรูหรา
+              และบริการจัดงานอีเวนต์แบบครบวงจร เราหลงใหลในการเปลี่ยนงานแต่งงานในฝัน
+              ของคุณให้กลายเป็นจริง
             </p>
 
             <div className="mt-10 flex flex-col gap-8">

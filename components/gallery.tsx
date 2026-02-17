@@ -1,12 +1,12 @@
 import Image from "next/image"
 
 const images = [
-  { src: "/images/gallery-1.jpg", alt: "Wedding bouquet floral arrangement" },
-  { src: "/images/gallery-2.jpg", alt: "Wedding reception table decoration" },
-  { src: "/images/gallery-3.jpg", alt: "Outdoor wedding ceremony arch" },
-  { src: "/images/gallery-4.jpg", alt: "Bride holding wedding bouquet" },
-  { src: "/images/gallery-5.jpg", alt: "Wedding stage decoration" },
-  { src: "/images/gallery-6.jpg", alt: "Thai wedding floral garlands" },
+  { src: "/images/gallery-1.jpg", alt: "จัดช่อดอกไม้งานแต่งงาน" },
+  { src: "/images/gallery-2.jpg", alt: "ตกแต่งโต๊ะงานเลี้ยงแต่งงาน" },
+  { src: "/images/gallery-3.jpg", alt: "ซุ้มพิธีแต่งงานกลางแจ้ง" },
+  { src: "/images/gallery-4.jpg", alt: "เจ้าสาวถือช่อดอกไม้" },
+  { src: "/images/gallery-5.jpg", alt: "ตกแต่งเวทีงานแต่งงาน" },
+  { src: "/images/gallery-6.jpg", alt: "พวงมาลัยดอกไม้งานแต่งไทย" },
 ]
 
 export function Gallery() {
@@ -15,14 +15,13 @@ export function Gallery() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-            Our Work
+            ผลงานของเรา
           </p>
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Gallery
+            แกลเลอรี
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            A glimpse of the beautiful moments and stunning designs we have
-            created for our clients.
+            ตัวอย่างช่วงเวลาที่สวยงามและผลงานออกแบบที่เราสร้างสรรค์ให้กับลูกค้าของเรา
           </p>
         </div>
 

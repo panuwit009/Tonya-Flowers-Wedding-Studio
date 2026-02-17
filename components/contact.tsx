@@ -3,32 +3,32 @@ import { Phone, Mail, MapPin, Clock, Facebook } from "lucide-react"
 const contactDetails = [
   {
     icon: Phone,
-    label: "Phone",
+    label: "โทรศัพท์",
     value: "092 827 8061",
     href: "tel:0928278061",
   },
   {
     icon: Mail,
-    label: "Email",
+    label: "อีเมล",
     value: "tanuponlali@gmail.com",
     href: "mailto:tanuponlali@gmail.com",
   },
   {
     icon: Facebook,
-    label: "Facebook",
+    label: "เฟซบุ๊ก",
     value: "Tonya Flowers Wedding Studio",
     href: "https://www.facebook.com/TonyaFlowersWeddingStudio",
   },
   {
     icon: MapPin,
-    label: "Location",
-    value: "Ramadecho, Lop Buri, Thailand 15000",
+    label: "ที่ตั้ง",
+    value: "รามเดโช, ลพบุรี, ประเทศไทย 15000",
     href: "https://maps.google.com/?q=รามเดโช+Lop+Buri+Thailand+15000",
   },
   {
     icon: Clock,
-    label: "Open Hours",
-    value: "Monday - Sunday, 10:00 - 19:00",
+    label: "เวลาทำการ",
+    value: "จันทร์ - อาทิตย์, 10:00 - 19:00",
     href: undefined,
   },
 ]
@@ -41,15 +41,14 @@ export function Contact() {
           {/* Left - CTA */}
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-              Get in Touch
+              ติดต่อเรา
             </p>
             <h2 className="font-serif text-3xl font-bold text-primary-foreground md:text-4xl text-balance">
-              {"Let's Plan Your Perfect Day"}
+              มาวางแผนวันสำคัญของคุณกัน
             </h2>
             <p className="mt-6 leading-relaxed text-primary-foreground/70">
-              Ready to start planning your dream wedding? We would love to hear
-              from you. Reach out to us and let us create something beautiful
-              together.
+              พร้อมเริ่มวางแผนงานแต่งงานในฝันของคุณแล้วหรือยัง?
+              เรายินดีรับฟังทุกความต้องการ ติดต่อเราเพื่อสร้างสรรค์สิ่งที่สวยงามร่วมกัน
             </p>
 
             <div className="mt-10 flex flex-col gap-6">
@@ -110,12 +109,12 @@ export function Contact() {
             </div>
             <div className="rounded-sm bg-primary-foreground/5 p-8">
               <h3 className="font-serif text-lg font-semibold text-primary-foreground">
-                Visit Our Studio
+                เยี่ยมชมสตูดิโอของเรา
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">
-                Come visit us at our studio to discuss your wedding plans in
-                person. We are open every day from 10:00 to 19:00. Walk-ins are
-                welcome, or you can call ahead to schedule a consultation.
+                แวะมาพูดคุยเรื่องแผนงานแต่งงานของคุณได้ที่สตูดิโอของเรา
+                เปิดให้บริการทุกวัน 10:00 - 19:00 น. ยินดีต้อนรับทุกท่าน
+                หรือโทรนัดหมายล่วงหน้าเพื่อปรึกษาได้เลย
               </p>
             </div>
           </div>

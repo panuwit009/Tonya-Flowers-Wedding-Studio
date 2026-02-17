@@ -3,39 +3,39 @@ import { Flower, CalendarHeart, Palette, Camera, UtensilsCrossed, Music } from "
 const services = [
   {
     icon: Flower,
-    title: "Floral Design",
+    title: "ออกแบบดอกไม้",
     description:
-      "Custom bridal bouquets, ceremony arches, table centerpieces, and venue decorations tailored to your theme.",
+      "ช่อดอกไม้เจ้าสาว ซุ้มพิธี แจกันกลางโต๊ะ และตกแต่งสถานที่ ออกแบบตามธีมของคุณ",
   },
   {
     icon: CalendarHeart,
-    title: "Wedding Planning",
+    title: "วางแผนงานแต่งงาน",
     description:
-      "Full-service wedding planning from venue selection to timeline coordination, ensuring a seamless celebration.",
+      "บริการวางแผนงานแต่งงานครบวงจร ตั้งแต่เลือกสถานที่จนถึงจัดตารางเวลา เพื่อให้งานเลี้ยงสมบูรณ์แบบ",
   },
   {
     icon: Palette,
-    title: "Theme & Styling",
+    title: "ธีมและสไตล์",
     description:
-      "Creative concept development and styling to bring your wedding vision to life with cohesive, stunning design.",
+      "พัฒนาคอนเซ็ปต์สร้างสรรค์และจัดสไตล์ เพื่อให้งานแต่งของคุณเป็นจริง ด้วยดีไซน์ที่สวยงามลงตัว",
   },
   {
     icon: Camera,
-    title: "Vendor Coordination",
+    title: "ประสานงานเจ้าภาพ",
     description:
-      "We connect you with trusted photographers, videographers, and other vendors for a perfect event.",
+      "เราเชื่อมต่อคุณกับช่างภาพ ช่างวิดีโอ และผู้ให้บริการที่น่าเชื่อถือ เพื่อให้งานสมบูรณ์แบบ",
   },
   {
     icon: UtensilsCrossed,
-    title: "Catering Setup",
+    title: "จัดเตรียมอาหารและเครื่องดื่ม",
     description:
-      "Elegant table settings, buffet styling, and dining area decoration to complement your reception.",
+      "จัดโต๊ะอาหารอย่างสวยงาม จัดสไตล์บุฟเฟ่ต์ และตกแต่งพื้นที่รับประทานอาหาร ให้เข้ากับงานเลี้ยงของคุณ",
   },
   {
     icon: Music,
-    title: "Day-of Coordination",
+    title: "ดูแลงานในวันจริง",
     description:
-      "Professional on-site management on your wedding day so you can relax and enjoy every moment.",
+      "บริหารจัดการหน้างานอย่างมืออาชีพในวันแต่งงาน เพื่อให้คุณผ่อนคลายและสนุกกับทุกช่วงเวลา",
   },
 ]
 
@@ -45,14 +45,14 @@ export function Services() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-            What We Offer
+            สิ่งที่เรามอบให้
           </p>
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Our Services
+            บริการของเรา
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            From stunning floral designs to complete event planning, we offer
-            everything you need for the perfect wedding.
+            ตั้งแต่การจัดดอกไม้สุดสวย ไปจนถึงการวางแผนงานอีเวนต์ครบวงจร
+            เรามีทุกอย่างที่คุณต้องการสำหรับงานแต่งงานที่สมบูรณ์แบบ
           </p>
         </div>
 

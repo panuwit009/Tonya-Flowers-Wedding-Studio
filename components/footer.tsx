@@ -19,8 +19,8 @@ export function Footer() {
             Tonya Flowers Wedding Studio
           </h3>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-            Professional wedding organizer and floral design studio in Lop Buri,
-            Thailand. Creating beautiful memories, one wedding at a time.
+            ผู้จัดงานแต่งงานมืออาชีพและสตูดิโอออกแบบดอกไม้ ลพบุรี ประเทศไทย
+            สร้างความทรงจำที่สวยงาม ทีละงานแต่ง
           </p>
 
           <div className="flex items-center gap-4">
@@ -52,7 +52,7 @@ export function Footer() {
           <div className="h-px w-full max-w-xs bg-border" />
 
           <p className="text-xs text-muted-foreground">
-            {`© ${currentYear} Tonya Flowers Wedding Studio. All rights reserved.`}
+            {`© ${currentYear} Tonya Flowers Wedding Studio สงวนลิขสิทธิ์`}
           </p>
         </div>
       </div>

@@ -12,15 +12,15 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: "Tonya Flowers Wedding Studio",
   description:
-    "Professional wedding organizer and floral design studio in Lop Buri, Thailand.",
+    "ผู้จัดงานแต่งงานมืออาชีพและสตูดิโอออกแบบดอกไม้ ลพบุรี ประเทศไทย",
   url: "https://tonyaflowers.com",
   telephone: "+66928278061",
   email: "tanuponlali@gmail.com",
   image: "/images/logo.jpg",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Ramadecho",
-    addressLocality: "Lop Buri",
+    streetAddress: "รามเดโช",
+    addressLocality: "ลพบุรี",
     addressCountry: "TH",
     postalCode: "15000",
   },
