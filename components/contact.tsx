@@ -17,7 +17,7 @@ const contactDetails = [
     icon: Facebook,
     label: "Facebook",
     value: "Tonya Flowers Wedding Studio",
-    href: "https://www.facebook.com/TonyaFlowersWeddingStudio",
+    href: "https://www.facebook.com/profile.php?id=100063576790491",
   },
   {
     icon: MapPin,

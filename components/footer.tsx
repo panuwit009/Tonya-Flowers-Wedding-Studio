@@ -25,7 +25,7 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://www.facebook.com/TonyaFlowersWeddingStudio"
+              href="https://www.facebook.com/profile.php?id=100063576790491"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
