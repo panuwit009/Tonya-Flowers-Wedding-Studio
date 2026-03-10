@@ -1,16 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { ArrowLeft, Calendar, User, Phone, Mail, MessageSquare, CheckCircle, Clock, MapPin } from "lucide-react"
-
-const packages = [
-  { id: "basic", name: "Basic Package", price: "15,000 - 25,000 บาท" },
-  { id: "standard", name: "Standard Package", price: "25,000 - 40,000 บาท" },
-  { id: "premium", name: "Premium Package", price: "40,000 - 60,000 บาท" },
-  { id: "luxury", name: "Luxury Package", price: "60,000 บาทขึ้นไป" },
-  { id: "custom", name: "กำหนดเอง", price: "ติดต่อสอบถาม" },
-]
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { ArrowLeft, Calendar, User, Phone, Mail, MessageSquare, CheckCircle, Clock, MapPin, AlertCircle } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+import type { Package, BlockedDate, Booking } from "@/lib/types/database"
 
 const venueTypes = [
   "โรงแรม",
@@ -21,24 +16,160 @@ const venueTypes = [
   "อื่นๆ",
 ]
 
+const eventTypes = [
+  "งานแต่งงาน",
+  "งานหมั้น",
+  "งานฉลองมงคลสมรส",
+  "อื่นๆ",
+]
+
 export default function BookingPage() {
+  const router = useRouter()
+  const supabase = createClient()
+  
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
+  const [profile, setProfile] = useState<{ full_name: string; phone: string } | null>(null)
+  const [packages, setPackages] = useState<Package[]>([])
+  const [blockedDates, setBlockedDates] = useState<string[]>([])
+  const [myBookings, setMyBookings] = useState<Booking[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    weddingDate: "",
-    guestCount: "",
-    venue: "",
+    eventDate: "",
+    eventLocation: "",
     venueType: "",
-    package: "",
+    eventType: "",
+    packageId: "",
     message: "",
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    async function loadData() {
+      // Get user
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        router.push('/auth/login')
+        return
+      }
+      setUser({ id: user.id, email: user.email || '' })
+      
+      // Get profile
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('full_name, phone')
+        .eq('id', user.id)
+        .single()
+      
+      if (profileData) {
+        setProfile(profileData)
+        setFormData(prev => ({
+          ...prev,
+          name: profileData.full_name || '',
+          phone: profileData.phone || '',
+          email: user.email || '',
+        }))
+      }
+      
+      // Get packages
+      const { data: packagesData } = await supabase
+        .from('packages')
+        .select('*')
+        .eq('is_active', true)
+        .order('price', { ascending: true })
+      
+      if (packagesData) {
+        setPackages(packagesData)
+      }
+      
+      // Get blocked dates
+      const { data: blockedData } = await supabase
+        .from('blocked_dates')
+        .select('blocked_date')
+      
+      if (blockedData) {
+        setBlockedDates(blockedData.map(d => d.blocked_date))
+      }
+
+      // Get existing bookings (dates that are pending/confirmed)
+      const { data: bookingsData } = await supabase
+        .from('bookings')
+        .select('event_date')
+        .in('status', ['pending', 'confirmed'])
+      
+      if (bookingsData) {
+        const bookedDates = bookingsData.map(b => b.event_date)
+        setBlockedDates(prev => [...new Set([...prev, ...bookedDates])])
+      }
+      
+      // Get my bookings
+      const { data: myBookingsData } = await supabase
+        .from('bookings')
+        .select('*, package:packages(*)')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+      
+      if (myBookingsData) {
+        setMyBookings(myBookingsData)
+      }
+      
+      setIsLoading(false)
+    }
+    
+    loadData()
+  }, [router, supabase])
+
+  const isDateBlocked = (dateString: string) => {
+    return blockedDates.includes(dateString)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send to an API
+    if (!user) return
+    
+    setIsSubmitting(true)
+    setError(null)
+
+    // Check if date is blocked
+    if (isDateBlocked(formData.eventDate)) {
+      setError('วันที่เลือกไม่ว่าง กรุณาเลือกวันอื่น')
+      setIsSubmitting(false)
+      return
+    }
+
+    const selectedPackage = packages.find(p => p.id === formData.packageId)
+    
+    const { error: insertError } = await supabase
+      .from('bookings')
+      .insert({
+        user_id: user.id,
+        package_id: formData.packageId || null,
+        customer_name: formData.name,
+        customer_email: formData.email,
+        customer_phone: formData.phone,
+        event_date: formData.eventDate,
+        event_location: formData.eventLocation || null,
+        event_type: formData.eventType || null,
+        special_requests: formData.message || null,
+        package_price: selectedPackage?.price || null,
+        total_price: selectedPackage?.price || null,
+        status: 'pending',
+        payment_status: 'unpaid',
+      })
+
+    if (insertError) {
+      setError('เกิดข้อผิดพลาดในการจอง กรุณาลองใหม่อีกครั้ง')
+      setIsSubmitting(false)
+      return
+    }
+
     setIsSubmitted(true)
+    setIsSubmitting(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -46,6 +177,55 @@ export default function BookingPage() {
       ...prev,
       [e.target.name]: e.target.value
     }))
+  }
+
+  const getStatusBadge = (status: string) => {
+    const styles = {
+      pending: 'bg-yellow-100 text-yellow-800',
+      confirmed: 'bg-green-100 text-green-800',
+      cancelled: 'bg-red-100 text-red-800',
+      completed: 'bg-blue-100 text-blue-800',
+    }
+    const labels = {
+      pending: 'รอยืนยัน',
+      confirmed: 'ยืนยันแล้ว',
+      cancelled: 'ยกเลิก',
+      completed: 'เสร็จสิ้น',
+    }
+    return (
+      <span className={`px-2 py-1 text-xs rounded-full ${styles[status as keyof typeof styles]}`}>
+        {labels[status as keyof typeof labels]}
+      </span>
+    )
+  }
+
+  const getPaymentBadge = (status: string) => {
+    const styles = {
+      unpaid: 'bg-gray-100 text-gray-800',
+      deposit_paid: 'bg-orange-100 text-orange-800',
+      fully_paid: 'bg-green-100 text-green-800',
+    }
+    const labels = {
+      unpaid: 'ยังไม่ชำระ',
+      deposit_paid: 'ชำระมัดจำแล้ว',
+      fully_paid: 'ชำระครบแล้ว',
+    }
+    return (
+      <span className={`px-2 py-1 text-xs rounded-full ${styles[status as keyof typeof styles]}`}>
+        {labels[status as keyof typeof labels]}
+      </span>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">กำลังโหลด...</p>
+        </div>
+      </div>
+    )
   }
 
   if (isSubmitted) {
@@ -56,10 +236,10 @@ export default function BookingPage() {
             <CheckCircle size={40} className="text-primary" />
           </div>
           <h2 className="font-serif text-2xl font-bold text-foreground">
-            ส่งข้อมูลสำเร็จ!
+            จองสำเร็จ!
           </h2>
           <p className="mt-4 text-muted-foreground">
-            ขอบคุณที่สนใจบริการของเรา เราจะติดต่อกลับภายใน 24 ชั่วโมง
+            ขอบคุณที่จองบริการของเรา เราจะติดต่อกลับเพื่อยืนยันการจองภายใน 24 ชั่วโมง
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link
@@ -68,12 +248,15 @@ export default function BookingPage() {
             >
               กลับหน้าหลัก
             </Link>
-            <a
-              href="tel:0928278061"
+            <button
+              onClick={() => {
+                setIsSubmitted(false)
+                window.location.reload()
+              }}
               className="rounded-sm border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
-              โทรหาเราเลย
-            </a>
+              ดูรายการจองของฉัน
+            </button>
           </div>
         </div>
       </div>
@@ -92,12 +275,62 @@ export default function BookingPage() {
             <ArrowLeft size={20} />
             <span className="text-sm">กลับหน้าหลัก</span>
           </Link>
-          <h1 className="font-serif text-xl font-semibold text-foreground">Booking</h1>
-          <div className="w-24" />
+          <h1 className="font-serif text-xl font-semibold text-foreground">จองบริการ</h1>
+          <div className="text-sm text-muted-foreground">
+            {user?.email}
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl px-6 py-12">
+      <main className="mx-auto max-w-6xl px-6 py-12">
+        {/* My Bookings Section */}
+        {myBookings.length > 0 && (
+          <div className="mb-12">
+            <h2 className="font-serif text-2xl font-bold text-foreground mb-6">รายการจองของฉัน</h2>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {myBookings.map((booking) => (
+                <div key={booking.id} className="rounded-lg border border-border bg-card p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <p className="font-medium text-foreground">
+                        {new Date(booking.event_date).toLocaleDateString('th-TH', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {booking.package?.name || 'ไม่ได้เลือกแพ็คเกจ'}
+                      </p>
+                    </div>
+                    {getStatusBadge(booking.status)}
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ประเภทงาน:</span>
+                      <span className="text-foreground">{booking.event_type || '-'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">สถานที่:</span>
+                      <span className="text-foreground">{booking.event_location || '-'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ราคา:</span>
+                      <span className="text-foreground font-medium">
+                        {booking.total_price?.toLocaleString() || '-'} บาท
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center pt-2">
+                      <span className="text-muted-foreground">การชำระเงิน:</span>
+                      {getPaymentBadge(booking.payment_status)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Page Title */}
         <div className="text-center mb-12">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
@@ -107,7 +340,7 @@ export default function BookingPage() {
             จองคิวปรึกษางานแต่งงาน
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            กรอกข้อมูลเบื้องต้น เราจะติดต่อกลับภายใน 24 ชั่วโมง เพื่อนัดหมายพูดคุยรายละเอียด
+            กรอกข้อมูลเพื่อจองวันที่ต้องการ เราจะติดต่อกลับเพื่อยืนยันการจอง
           </p>
         </div>
 
@@ -157,21 +390,19 @@ export default function BookingPage() {
                 </div>
               </div>
 
+              {/* Package Info */}
               <div className="mt-6 pt-6 border-t border-border">
-                <p className="text-sm text-muted-foreground">
-                  หรือติดต่อผ่าน LINE เพื่อรับการตอบกลับที่รวดเร็วยิ่งขึ้น
-                </p>
-                <a
-                  href="https://line.me/ti/p/~tonyaflowers"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 flex items-center justify-center gap-2 rounded-sm bg-[#06C755] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#05a847]"
-                >
-                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .195-.095.378-.252.491l-1.667 1.244v1.408c0 .349-.281.631-.63.631a.634.634 0 01-.63-.631v-3.144c0-.349.281-.631.63-.631h1.919zm-3.768 0a.634.634 0 01.63.631v3.144a.634.634 0 01-.63.631.634.634 0 01-.631-.631V10.494a.634.634 0 01.631-.631zm-1.758 0c.349 0 .63.285.63.631v3.144a.634.634 0 01-.63.631H11.95a.634.634 0 01-.631-.631V10.494c0-.346.282-.631.631-.631h1.889zm-5.377 0c.349 0 .63.285.63.631 0 .349-.281.631-.63.631h-1.258v.65h1.258c.349 0 .63.285.63.631 0 .349-.281.631-.63.631H7.204a.634.634 0 01-.631-.631V10.494c0-.346.282-.631.631-.631h2.258zM12 2C6.477 2 2 5.813 2 10.498c0 4.174 3.598 7.673 8.468 8.386.329.069.777.211.89.486.102.249.066.641.033.891l-.144.865c-.044.262-.204 1.024.896.558 1.1-.467 5.929-3.491 8.09-5.979h-.001C21.67 14.07 22 12.346 22 10.498 22 5.813 17.523 2 12 2z"/>
-                  </svg>
-                  LINE: @tonyaflowers
-                </a>
+                <h4 className="font-medium text-foreground mb-4">แพ็คเกจบริการ</h4>
+                <div className="space-y-3">
+                  {packages.map((pkg) => (
+                    <div key={pkg.id} className="text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-foreground">{pkg.name}</span>
+                        <span className="text-accent font-medium">{pkg.price.toLocaleString()} บาท</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -179,6 +410,13 @@ export default function BookingPage() {
           {/* Booking Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-card p-6 lg:p-8">
+              {error && (
+                <div className="mb-6 flex items-center gap-2 rounded-lg bg-red-50 p-4 text-red-700">
+                  <AlertCircle size={20} />
+                  <p className="text-sm">{error}</p>
+                </div>
+              )}
+
               <div className="grid gap-6">
                 {/* Personal Info */}
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -219,12 +457,13 @@ export default function BookingPage() {
                 <div>
                   <label htmlFor="email" className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
                     <Mail size={16} className="text-muted-foreground" />
-                    อีเมล
+                    อีเมล <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
+                    required
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
@@ -232,90 +471,86 @@ export default function BookingPage() {
                   />
                 </div>
 
-                {/* Wedding Details */}
+                {/* Event Details */}
                 <div className="border-t border-border pt-6">
                   <h4 className="mb-4 font-serif text-lg font-semibold text-foreground">รายละเอียดงาน</h4>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="weddingDate" className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
+                      <label htmlFor="eventDate" className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
                         <Calendar size={16} className="text-muted-foreground" />
-                        วันที่จัดงาน (โดยประมาณ)
+                        วันที่จัดงาน <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="date"
-                        id="weddingDate"
-                        name="weddingDate"
-                        value={formData.weddingDate}
+                        id="eventDate"
+                        name="eventDate"
+                        required
+                        min={new Date().toISOString().split('T')[0]}
+                        value={formData.eventDate}
                         onChange={handleChange}
-                        className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                        className={`w-full rounded-sm border px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-1 ${
+                          formData.eventDate && isDateBlocked(formData.eventDate)
+                            ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500'
+                            : 'border-input bg-background focus:border-accent focus:ring-accent'
+                        }`}
                       />
+                      {formData.eventDate && isDateBlocked(formData.eventDate) && (
+                        <p className="mt-1 text-xs text-red-500">วันนี้ไม่ว่าง กรุณาเลือกวันอื่น</p>
+                      )}
                     </div>
                     <div>
-                      <label htmlFor="guestCount" className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
-                        <User size={16} className="text-muted-foreground" />
-                        จำนวนแขก (โดยประมาณ)
+                      <label htmlFor="eventType" className="mb-2 block text-sm font-medium text-foreground">
+                        ประเภทงาน <span className="text-red-500">*</span>
                       </label>
-                      <input
-                        type="number"
-                        id="guestCount"
-                        name="guestCount"
-                        value={formData.guestCount}
+                      <select
+                        id="eventType"
+                        name="eventType"
+                        required
+                        value={formData.eventType}
                         onChange={handleChange}
-                        className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-                        placeholder="100"
-                      />
+                        className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      >
+                        <option value="">เลือกประเภทงาน</option>
+                        {eventTypes.map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
                     </div>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="venueType" className="mb-2 block text-sm font-medium text-foreground">
-                      ประเภทสถานที่
-                    </label>
-                    <select
-                      id="venueType"
-                      name="venueType"
-                      value={formData.venueType}
-                      onChange={handleChange}
-                      className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-                    >
-                      <option value="">เลือกประเภทสถานที่</option>
-                      {venueTypes.map(type => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="venue" className="mb-2 block text-sm font-medium text-foreground">
-                      ชื่อสถานที่ (ถ้าทราบ)
-                    </label>
-                    <input
-                      type="text"
-                      id="venue"
-                      name="venue"
-                      value={formData.venue}
-                      onChange={handleChange}
-                      className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-                      placeholder="ชื่อโรงแรม/สถานที่"
-                    />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="package" className="mb-2 block text-sm font-medium text-foreground">
-                    แพ็คเกจที่สนใจ
+                  <label htmlFor="eventLocation" className="mb-2 block text-sm font-medium text-foreground">
+                    สถานที่จัดงาน
+                  </label>
+                  <input
+                    type="text"
+                    id="eventLocation"
+                    name="eventLocation"
+                    value={formData.eventLocation}
+                    onChange={handleChange}
+                    className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                    placeholder="ชื่อโรงแรม/สถานที่ และจังหวัด"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="packageId" className="mb-2 block text-sm font-medium text-foreground">
+                    แพ็คเกจที่สนใจ <span className="text-red-500">*</span>
                   </label>
                   <select
-                    id="package"
-                    name="package"
-                    value={formData.package}
+                    id="packageId"
+                    name="packageId"
+                    required
+                    value={formData.packageId}
                     onChange={handleChange}
                     className="w-full rounded-sm border border-input bg-background px-4 py-3 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   >
                     <option value="">เลือกแพ็คเกจ</option>
                     {packages.map(pkg => (
-                      <option key={pkg.id} value={pkg.id}>{pkg.name} ({pkg.price})</option>
+                      <option key={pkg.id} value={pkg.id}>
+                        {pkg.name} ({pkg.price.toLocaleString()} บาท)
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -338,13 +573,14 @@ export default function BookingPage() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-sm bg-primary px-6 py-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  disabled={isSubmitting || (formData.eventDate && isDateBlocked(formData.eventDate))}
+                  className="w-full rounded-sm bg-primary px-6 py-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ส่งข้อมูล
+                  {isSubmitting ? 'กำลังจอง...' : 'ยืนยันการจอง'}
                 </button>
 
                 <p className="text-center text-xs text-muted-foreground">
-                  ข้อมูลของคุณจะถูกเก็บเป็นความลับและใช้เพื่อการติดต่อกลับเท่านั้น
+                  หลังจากจองแล้ว ทางร้านจะติดต่อกลับเพื่อยืนยันและแจ้งรายละเอียดการชำระเงิน
                 </p>
               </div>
             </form>

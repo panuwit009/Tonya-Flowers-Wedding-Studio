@@ -16,7 +16,7 @@ export function FloatingContact() {
             : "pointer-events-none translate-y-4 opacity-0"
         }`}
       >
-        {/* LINE */}
+        {/* LINE - ยังไม่มี LINE ของร้าน
         <a
           href="https://line.me/ti/p/~tonyaflowers"
           target="_blank"
@@ -36,6 +36,7 @@ export function FloatingContact() {
             </svg>
           </div>
         </a>
+        */}
 
         {/* Facebook Messenger */}
         <a
