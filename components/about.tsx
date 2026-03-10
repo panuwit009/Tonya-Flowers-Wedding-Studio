@@ -40,17 +40,14 @@ export function About() {
           {/* Text content */}
           <div>
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-              About Us
+              เกี่ยวกับเรา
             </p>
             <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-              Where Elegance Meets Celebration
+              ร้านต้นหญ้าฟลาวเวอร์เวดดิ้งลพบุรี
             </h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              Tonya Flowers Wedding Studio is a professional wedding organizer
-              based in Lop Buri, Thailand. We specialize in creating beautiful,
-              memorable weddings with elegant flower arrangements and
-              comprehensive event planning services. Our passion is turning your
-              dream wedding into reality.
+              เพราะทุกคู่คือผลงานที่รังสรรค์ออกมาโดยทีมต้นหญ้าฟลาวเวอร์กว่า 10 ปีที่พัฒนาอย่างต่อเนื่อง
+              ขอบพระคุณทุกแรงพลักดันและการสนับสนุนจากบ่าวสาวทุกคู่อย่างไม่มีที่สิ้นสุด เราหวังว่าเราจะได้รับใช้ท่านในโอกาสต่างๆ เช่นเคย ทุกความรู้สึกดีดีเกิดขึ้นที่เราต้นหญ้าฟลาวเวอร์เวดดิ้งขอเป็นหนึ่งในแรงบันดาลใจการสร้างผลงาน
             </p>
 
             <div className="mt-10 flex flex-col gap-8">

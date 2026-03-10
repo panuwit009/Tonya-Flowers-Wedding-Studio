@@ -5,11 +5,11 @@ import Image from "next/image"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
+  { label: "หน้าแรก", href: "#home" },
+  { label: "เกี่ยวกับเรา", href: "#about" },
+  { label: "บริการ", href: "#services" },
+  { label: "ผลงาน", href: "#gallery" },
+  { label: "ติดต่อเรา", href: "#contact" },
 ]
 
 export function Navbar() {
@@ -49,7 +49,7 @@ export function Navbar() {
           href="tel:0928278061"
           className="hidden rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 md:inline-block"
         >
-          Book Now
+          นัดหมาย
         </a>
 
         {/* Mobile menu toggle */}
