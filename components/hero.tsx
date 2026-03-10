@@ -44,7 +44,7 @@ export function Hero() {
             ติดต่อเรา
           </a>
           <a
-            href="#services"
+            href="/services"
             className="rounded-sm border border-primary-foreground/30 px-8 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
           >
             บริการของเรา
