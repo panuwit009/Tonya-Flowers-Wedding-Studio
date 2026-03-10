@@ -23,14 +23,13 @@ export function Services() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-            What We Offer
+            บริการของเรา
           </p>
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Our Services
+            แพ็คเกจ
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            From stunning floral designs to complete event planning, we offer
-            everything you need for the perfect wedding.
+            รายละเอียดแพ็คเกจและราคาบริการจัดดอกไม้งานแต่งงานของเรา
           </p>
         </div>
 
@@ -60,7 +59,7 @@ export function Services() {
         </div>
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
-          Click on package images to view full details
+          กดที่รูปแพ็คเกจเพื่อดูรายละเอียดเพิ่มเติม
         </p>
       </div>
 

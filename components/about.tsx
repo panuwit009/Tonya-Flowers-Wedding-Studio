@@ -4,21 +4,21 @@ import { Heart, Flower2, Sparkles } from "lucide-react"
 const highlights = [
   {
     icon: Heart,
-    title: "Passion for Detail",
+    title: "ใส่ใจทุกรายละเอียด",
     description:
-      "Every petal, every ribbon, every detail is crafted with love and care to make your day truly special.",
+      "ทุกกลีบดอก ทุกริบบิ้น ทุกรายละเอียดถูกสร้างสรรค์ด้วยความรักและความใส่ใจ เพื่อให้วันสำคัญของคุณพิเศษอย่างแท้จริง",
   },
   {
     icon: Flower2,
-    title: "Floral Expertise",
+    title: "เชี่ยวชาญด้านดอกไม้",
     description:
-      "With years of experience in floral design, we create stunning arrangements that capture your unique style.",
+      "ด้วยประสบการณ์กว่า 10 ปีในการจัดดอกไม้ เราสร้างสรรค์การจัดดอกไม้ที่สวยงามและเหมาะกับสไตล์ของคุณ",
   },
   {
     icon: Sparkles,
-    title: "Full Service Planning",
+    title: "บริการครบวงจร",
     description:
-      "From concept to celebration, we handle every aspect of your wedding so you can enjoy the moment.",
+      "ตั้งแต่การวางแผนจนถึงวันงาน เราดูแลทุกรายละเอียดของงานแต่งงาน เพื่อให้คุณได้สนุกกับทุกช่วงเวลา",
   },
 ]
 

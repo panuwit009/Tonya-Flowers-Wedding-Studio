@@ -32,14 +32,13 @@ export function Gallery() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-accent">
-            Our Work
+            ผลงานของเรา
           </p>
           <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
             Gallery
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            A glimpse of the beautiful moments and stunning designs we have
-            created for our clients.
+            ภาพผลงานการจัดดอกไม้และตกแต่งงานแต่งงานที่เราได้สร้างสรรค์ให้กับลูกค้า
           </p>
         </div>
 
@@ -68,7 +67,7 @@ export function Gallery() {
         {/* Videos Section */}
         <div className="mt-12">
           <h3 className="mb-6 text-center font-serif text-xl font-semibold text-foreground">
-            Videos
+            วิดีโอผลงาน
           </h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {videos.map((video) => (
