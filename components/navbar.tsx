@@ -5,11 +5,13 @@ import Image from "next/image"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "หน้าแรก", href: "#home" },
-  { label: "เกี่ยวกับเรา", href: "#about" },
-  { label: "บริการ", href: "#services" },
-  { label: "ผลงาน", href: "#gallery" },
-  { label: "ติดต่อเรา", href: "#contact" },
+  { label: "หน้าแรก", href: "/" },
+  { label: "เกี่ยวกับเรา", href: "/about" },
+  { label: "บริการ", href: "/#services" },
+  { label: "ผลงาน", href: "/gallery" },
+  { label: "บทความ", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
+  { label: "ติดต่อเรา", href: "/#contact" },
 ]
 
 export function Navbar() {
@@ -46,7 +48,7 @@ export function Navbar() {
         </ul>
 
         <a
-          href="tel:0928278061"
+          href="/booking"
           className="hidden rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 md:inline-block"
         >
           นัดหมาย
@@ -79,10 +81,10 @@ export function Navbar() {
             ))}
           </ul>
           <a
-            href="tel:0928278061"
+            href="/booking"
             className="mt-4 inline-block rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
-            Book Now
+            นัดหมาย
           </a>
         </div>
       )}
