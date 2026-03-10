@@ -1,10 +1,13 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
+import { Stats } from "@/components/stats"
 import { Services } from "@/components/services"
 import { Gallery } from "@/components/gallery"
+import { Testimonials } from "@/components/testimonials"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
+import { FloatingContact } from "@/components/floating-contact"
 
 // JSON-LD structured data for SEO (helps Google show rich results)
 const jsonLd = {
@@ -40,11 +43,14 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Stats />
         <Services />
         <Gallery />
+        <Testimonials />
         <Contact />
       </main>
       <Footer />
+      <FloatingContact />
     </>
   )
 }
