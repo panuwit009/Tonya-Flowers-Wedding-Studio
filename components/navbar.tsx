@@ -1,14 +1,13 @@
 "use client"
-
 import { useState } from "react"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "หน้าแรก", href: "#home" },
-  { label: "เกี่ยวกับเรา", href: "#about" },
-  { label: "บริการ", href: "#services" },
-  { label: "ผลงาน", href: "#gallery" },
+  { label: "หน้าแรก", href: "/" },
+  { label: "เกี่ยวกับเรา", href: "/about" },
+  { label: "บริการ", href: "/services" },
+  { label: "ผลงาน", href: "/gallery" },
   { label: "ติดต่อเรา", href: "#contact" },
 ]
 
@@ -18,7 +17,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <a href="#home" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <Image
             src="/images/logo.jpg"
             alt="Tonya Flowers Wedding Studio Logo"

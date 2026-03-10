@@ -1,10 +1,4 @@
-import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Services } from "@/components/services"
-import { Gallery } from "@/components/gallery"
-import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
 
 // JSON-LD structured data for SEO (helps Google show rich results)
 const jsonLd = {
@@ -36,15 +30,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
       <main>
         <Hero />
-        <About />
-        <Services />
-        <Gallery />
-        <Contact />
       </main>
-      <Footer />
     </>
   )
 }
